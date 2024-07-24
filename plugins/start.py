@@ -32,6 +32,40 @@ from config import (
 from helper_func import subscribed, encode, decode, get_messages, get_shortlink, get_verify_status, update_verify_status, get_exp_time
 from database.database import add_user, del_user, full_userbase, present_user
 from shortzy import Shortzy
+async def auto_delete_message(message: Message, delay: int):
+    """Auto-delete a message after a specified delay."""
+    await asyncio.sleep(delay)
+    try:
+        await message.delete()
+        logger.info(f"Deleted message {message.id}")
+    except Exception as e:
+        logger.error(f"Error deleting message {message.id}: {e}")
+        # Notify user about auto-deletion
+sd_msg = await message.reply_text("Files will be automatically deleted after 1 hour. Save them to your Saved Messages now!")
+
+# List of sent messages to delete later
+snt_msgs = []
+
+for msg in messages:
+    # Existing logic for sending files
+    try:
+        snt_msg = await msg.copy(chat_id=message.from_user.id, caption=caption, parse_mode=ParseMode.HTML, reply_markup=reply_markup, protect_content=PROTECT_CONTENT)
+        await asyncio.sleep(0.5)
+        snt_msgs.append(snt_msg)
+    except FloodWait as e:
+        await asyncio.sleep(e.x)
+        snt_msg = await msg.copy(chat_id=message.from_user.id, caption=caption, parse_mode=ParseMode.HTML, reply_markup=reply_markup, protect_content=PROTECT_CONTENT)
+        snt_msgs.append(snt_msg)
+    except Exception as e:
+        logging.error(f"Failed to send message: {e}")
+
+# Wait for 1 hour before deleting files
+await asyncio.sleep(3600)
+
+# Delete sent messages and notification message
+for snt_msg in snt_msgs:
+    await auto_delete_message(snt_msg, 0)  # Immediately delete sent messages
+await auto_delete_message(sd_msg, 0)  # Immediately delete the notification message
 
 """add time in seconds for waiting before delete 
 1 min = 60, 2 min = 60 × 2 = 120, 5 min = 60 × 5 = 300"""
