@@ -9,8 +9,16 @@ import asyncio
 from pyrogram import filters
 import os
 
-# Load AUTO_DELETE_TIME from environment variables with a default of 3600 seconds
+# Load environment variables
+API_HASH = os.getenv('API_HASH', '')
+APP_ID = int(os.getenv('APP_ID', ''))
+TG_BOT_TOKEN = os.getenv('TG_BOT_TOKEN', '')
+CHANNEL_ID = int(os.getenv('CHANNEL_ID', ''))
+FORCE_SUB_CHANNEL = int(os.getenv('FORCE_SUB_CHANNEL', ''))
+PORT = int(os.getenv('PORT', '8080'))
+TG_BOT_WORKERS = int(os.getenv('TG_BOT_WORKERS', '4'))
 AUTO_DELETE_TIME = int(os.getenv('AUTO_DELETE_TIME', 3600))  # 1 hour default
+LOGGER = print  # Adjust logger as needed
 
 class Bot(Client):
     def __init__(self):
@@ -38,36 +46,24 @@ class Bot(Client):
                 self.invitelink = link
             except Exception as a:
                 self.LOGGER(__name__).warning(a)
-                self.LOGGER(__name__).warning("Bot can't Export Invite link from Force Sub Channel!")
-                self.LOGGER(__name__).warning(f"Please Double check the FORCE_SUB_CHANNEL value and Make sure Bot is Admin in channel with Invite Users via Link Permission, Current Force Sub Channel Value: {FORCE_SUB_CHANNEL}")
-                self.LOGGER(__name__).info("\nBot Stopped. Join https://t.me/codeflix_bots for support")
+                self.LOGGER(__name__).warning("Bot can't export invite link from Force Sub Channel!")
+                self.LOGGER(__name__).warning(f"Please double-check the FORCE_SUB_CHANNEL value and make sure the bot is an admin in the channel with Invite Users via Link Permission, Current Force Sub Channel Value: {FORCE_SUB_CHANNEL}")
+                self.LOGGER(__name__).info("\nBot stopped.")
                 sys.exit()
 
         try:
             db_channel = await self.get_chat(CHANNEL_ID)
             self.db_channel = db_channel
-            test = await self.send_message(chat_id=db_channel.id, text="bot working...")
+            test = await self.send_message(chat_id=db_channel.id, text="Bot is working...")
             await test.delete()
         except Exception as e:
             self.LOGGER(__name__).warning(e)
-            self.LOGGER(__name__).warning(f"Make Sure bot is Admin in DB Channel, and Double check the CHANNEL_ID Value, Current Value {CHANNEL_ID}")
-            self.LOGGER(__name__).info("\nBot Stopped. Join https://t.me/codeflix_bots for support")
+            self.LOGGER(__name__).warning(f"Make sure the bot is an admin in the DB Channel, and double-check the CHANNEL_ID value, Current Value: {CHANNEL_ID}")
+            self.LOGGER(__name__).info("\nBot stopped.")
             sys.exit()
 
         self.set_parse_mode(ParseMode.HTML)
-        self.LOGGER(__name__).info(f"Bot Running..!\n\nCreated by \nhttps://t.me/codeflix_bots")
-        self.LOGGER(__name__).info(f""" \n\n
-
-        async def auto_delete_message(client, message, delay: int):
-            await asyncio.sleep(delay)
-            try:
-                await message.delete()
-                self.LOGGER(__name__).info(f"Deleted file message: {message.document.file_name}")
-            except Exception as e:
-                self.LOGGER(__name__).warning(f"Failed to delete message: {e}")
-
-        BOT DEPLOYED BY  @CODEFLIX_BOTS
-        """)
+        self.LOGGER(__name__).info("Bot running!")
 
         self.username = usr_bot_me.username
 
