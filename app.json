@@ -1,6 +1,6 @@
 {
   "name": "File Store bot by codeflix",
-  "description": "file sharing bot store posts and it can access by special links",
+  "description": "File sharing bot that stores posts and can be accessed by special links",
   "keywords": [
     "telegram",
     "file",
@@ -17,42 +17,42 @@
       "description": "An integer of consisting of your owner ID",
       "value": "6497757690"
     },
-    "APP_ID":{
-      "description": "your app id, take it from my.telegram.org",
+    "APP_ID": {
+      "description": "Your app ID, take it from my.telegram.org",
       "value": ""
     },
     "DATABASE_URL": {
-      "description": "Paste your mongo db url",
+      "description": "Paste your MongoDB URL",
       "value": "url"
     },
-    "DATABASE_NAME":{
-      "description": "Enter your DATABASE_NAME ",
+    "DATABASE_NAME": {
+      "description": "Enter your DATABASE_NAME",
       "value": "Cluster0"
     },
-    "API_HASH":{
-      "description": "your api hash, take it from my.telegram.org",
+    "API_HASH": {
+      "description": "Your API hash, take it from my.telegram.org",
       "value": ""
     },
-    "CHANNEL_ID":{
-      "description": "make a channel (database channel), then make the bot as admin in channel, and it's id",
+    "CHANNEL_ID": {
+      "description": "Make a channel (database channel), then make the bot an admin in the channel, and its ID",
       "value": "-100"
     },
-    "FORCE_SUB_CHANNEL":{
-      "description": "id of the channel or group, if you want enable force sub feature else put 0",
+    "FORCE_SUB_CHANNEL": {
+      "description": "ID of the channel or group, if you want to enable the force sub feature; else put 0",
       "value": "0"
     },
     "ADMINS": {
-      "description": "A space separated list of user_ids of Admins, they can only create links",
+      "description": "A space-separated list of user IDs of Admins, they can only create links",
       "value": "",
       "required": false
     },
     "SHORTLINK_URL": {
-      "description": "Your Shortner url. eg: shareus.io",
+      "description": "Your Shortener URL, e.g., shareus.io",
       "value": "",
       "required": false
     },
     "SHORTLINK_API": {
-      "description": "shortner api key",
+      "description": "Shortener API key",
       "value": "",
       "required": false
     },
@@ -64,6 +64,11 @@
     "PROTECT_CONTENT": {
       "description": "Protect contents from getting forwarded",
       "value": "False",
+      "required": false
+    },
+    "AUTO_DELETE_TIME": {
+      "description": "Time in seconds after which files should be auto-deleted",
+      "value": "3600",
       "required": false
     }
   },
@@ -78,5 +83,4 @@
       "size": "eco"
     }
   }
-}
-
+  }
