@@ -1,6 +1,5 @@
 from aiohttp import web
 from plugins import web_server
-
 import pyromod.listen
 from pyrogram import Client
 from pyrogram.enums import ParseMode
@@ -8,8 +7,10 @@ import sys
 from datetime import datetime
 import asyncio
 from pyrogram import filters
+import os
 
-from config import API_HASH, APP_ID, LOGGER, TG_BOT_TOKEN, TG_BOT_WORKERS, FORCE_SUB_CHANNEL, CHANNEL_ID, PORT
+# Load AUTO_DELETE_TIME from environment variables with a default of 3600 seconds
+AUTO_DELETE_TIME = int(os.getenv('AUTO_DELETE_TIME', 3600))  # 1 hour default
 
 class Bot(Client):
     def __init__(self):
@@ -17,9 +18,7 @@ class Bot(Client):
             name="Bot",
             api_hash=API_HASH,
             api_id=APP_ID,
-            plugins={
-                "root": "plugins"
-            },
+            plugins={"root": "plugins"},
             workers=TG_BOT_WORKERS,
             bot_token=TG_BOT_TOKEN
         )
@@ -57,16 +56,18 @@ class Bot(Client):
 
         self.set_parse_mode(ParseMode.HTML)
         self.LOGGER(__name__).info(f"Bot Running..!\n\nCreated by \nhttps://t.me/codeflix_bots")
-        self.LOGGER(__name__).info(f""" \n\n      
+        self.LOGGER(__name__).info(f""" \n\n
 
         async def auto_delete_message(client, message, delay: int):
-        await asyncio.sleep(delay)
-        await message.delete()
-      
-                                                  
-                                                  
-BOT DEPLOYED BY  @CODEFLIX_BOTS                        
-                                          """)
+            await asyncio.sleep(delay)
+            try:
+                await message.delete()
+                self.LOGGER(__name__).info(f"Deleted file message: {message.document.file_name}")
+            except Exception as e:
+                self.LOGGER(__name__).warning(f"Failed to delete message: {e}")
+
+        BOT DEPLOYED BY  @CODEFLIX_BOTS
+        """)
 
         self.username = usr_bot_me.username
 
@@ -84,11 +85,14 @@ BOT DEPLOYED BY  @CODEFLIX_BOTS
         self.LOGGER(__name__).info("Bot stopped.")
 
     async def handle_file(self, client, message):
+        # Notify user about auto-deletion
+        await message.reply_text(f"This file will be automatically deleted after {AUTO_DELETE_TIME / 60} minutes.")
+
         # Save the message ID for later deletion
         self.LOGGER(__name__).info(f"File received: {message.document.file_name}")
 
         # Schedule the file deletion
-        asyncio.create_task(self.auto_delete_message(client, message, 3600))  # 3600 seconds = 1 hour
+        asyncio.create_task(self.auto_delete_message(client, message, AUTO_DELETE_TIME))
 
     async def auto_delete_message(self, client, message, delay: int):
         await asyncio.sleep(delay)
