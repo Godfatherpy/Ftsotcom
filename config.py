@@ -39,16 +39,16 @@ FORCE_SUB_CHANNEL = int(os.environ.get("FORCE_SUB_CHANNEL", ""))
 TG_BOT_WORKERS = int(os.environ.get("TG_BOT_WORKERS", "4"))
 
 #start message
-START_MSG = os.environ.get("START_MESSAGE", "<b>ʜᴇʟʟᴏ {first}\n\n ɪ ᴀᴍ ᴛᴏᴋᴇɴ ᴠᴇʀɪғɪᴄᴀᴛɪᴏɴ ғɪʟᴇ sᴛᴏʀᴇ ʙᴏᴛ , ɪ ᴄᴀɴ sᴛᴏʀᴇ ᴘʀɪᴠᴀᴛᴇ ғɪʟᴇs ɪɴ sᴘᴇᴄɪғɪᴇᴅ ᴄʜᴀɴɴᴇʟ ᴀɴᴅ ᴏᴛʜᴇʀ ᴜsᴇʀs ᴄᴀɴ ᴀᴄᴄᴇss ɪᴛ ғʀᴏᴍ sᴘᴇᴄɪᴀʟ ʟɪɴᴋ » @team_netflix</b>")
+START_MSG = os.environ.get("START_MESSAGE", "<b>𝐻𝑒𝑦 {first}</b>\n\n<b>𝑊𝑒𝑙𝑐𝑜𝑚𝑒 𝑡𝑜 𝑡ℎ𝑒 𝐻𝑎𝑛𝑖𝑒𝑙 𝐹𝑖𝑙𝑒 𝑆𝑡𝑜𝑟𝑒 𝐵𝑜𝑡!✨ </b>\n \n<b><a href='https://t.me/+WA5vFPHEMfJmODk1'>𝑊𝑎𝑡𝑐ℎ 𝑚𝑜𝑣𝑖𝑒𝑠/𝑡𝑣 𝑠ℎ𝑜𝑤𝑠 🍿🌟 </a></b>\n \n<b><a href='https://t.me/+ddfydq6pKYtmNjU9'>𝑊𝑎𝑡𝑐ℎ 𝑒𝑥𝑐𝑙𝑢𝑠𝑖𝑣𝑒 𝑐𝑜𝑛𝑡𝑒𝑛𝑡 🎥🔞</a></b>")
 try:
     ADMINS=[]
-    for x in (os.environ.get("ADMINS", "6852649461").split()):
+    for x in (os.environ.get("ADMINS", "ADMINS").split()):
         ADMINS.append(int(x))
 except ValueError:
         raise Exception("Your Admins list does not contain valid integers.")
 
 #Force sub message 
-FORCE_MSG = os.environ.get("FORCE_SUB_MESSAGE", "𝐒𝐨𝐫𝐫𝐲 {first} 𝐁𝐫𝐨/𝐒𝐢𝐬 𝐲𝐨𝐮 𝐡𝐚𝐯𝐞 𝐭𝐨 𝐣𝐨𝐢𝐧 𝐦𝐲 𝐜𝐡𝐚𝐧𝐧𝐞𝐥 𝐟𝐢𝐫𝐬𝐭 𝐭𝐨 𝐚𝐜𝐜𝐞𝐬𝐬 𝐟𝐢𝐥𝐞𝐬..\n\n 𝐒𝐨 𝐩𝐥𝐞𝐚𝐬𝐞 𝐣𝐨𝐢𝐧 𝐦𝐲 𝐜𝐡𝐚𝐧𝐧𝐞𝐥 𝐟𝐢𝐫𝐬𝐭 𝐚𝐧𝐝 𝐜𝐥𝐢𝐜𝐤 𝐨𝐧 “𝐍𝐨𝐰 𝐂𝐥𝐢𝐜𝐤 𝐡𝐞𝐫𝐞” 𝐛𝐮𝐭𝐭𝐨𝐧....!")
+FORCE_MSG = os.environ.get("FORCE_SUB_MESSAGE", "<b>𝐻𝑒𝑙𝑙𝑜 {first}</b>\n \n<b>𝑌𝑜𝑢 𝑛𝑒𝑒𝑑 𝑡𝑜 𝑗𝑜𝑖𝑛 𝑚𝑦 𝑐ℎ𝑎𝑛𝑛𝑒𝑙 𝑡𝑜 𝑢𝑠𝑒 𝑚𝑒</b>\n\n<b>𝐾𝑖𝑛𝑑𝑙𝑦 𝑝𝑙𝑒𝑎𝑠𝑒 𝑗𝑜𝑖𝑛 𝑡ℎ𝑒 𝑐ℎ𝑎𝑛𝑛𝑒𝑙𝑠</b>")
 
 #set your Custom Caption here, Keep None for Disable Custom Caption
 CUSTOM_CAPTION = os.environ.get("CUSTOM_CAPTION", "<b>» ʙʏ @team_netflix</b>")
